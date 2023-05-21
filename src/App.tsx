@@ -1,23 +1,13 @@
-import React, { useState } from "react";
-import store from './components/store';
+import React from "react";
+import store from './components/Store';
 import { Provider } from 'react-redux';
 import Parent from "./components/ParentList";
 
-function App(): React.ReactElement {
-  const [blur, setBlur] = useState<boolean>(false);
-
-  const blurBg = () => {
-    setBlur(true);
-  };
-
-  const unblurBg = () => {
-    setBlur(false);
-  };
-
+const App: React.FC = () => {
   return (
     <>
       <Provider store={store}>
-        <Parent></Parent>
+        <Parent/>
       </Provider>
     </>
   );

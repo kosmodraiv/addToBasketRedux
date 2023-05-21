@@ -1,32 +1,9 @@
 import styled from 'styled-components';
-import List from "./shopList";
+import List from "./ShopList";
 import Basket from "./basket";
 import { useState } from "react";
 
-export default function Parent(){
-
-    const [blur, setBlur] = useState(false);
-
-    const blurBg = () => {
-        setBlur(true);
-    };
-
-    const unblurBg = () => {
-        setBlur(false);
-    };
-
-    const MainDiv = styled.div`
-        display: flex;
-        justify-content:center;
-        align-items: center;
-        filter: blur(${blur ? "5px" : "0px"});
-    `
-
     const ProductList = styled.div`
-        ${'' /* display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-template-rows: auto auto auto; 
-        gap: 10px;  */}
         display: flex;
         flex-wrap: wrap;
         margin-top: 30px;
@@ -36,7 +13,6 @@ export default function Parent(){
     const Product = styled.div`
         width: 300px;
         height: 300px;
-        ${'' /* border: 1px solid gray; */}
         border-radius: 10px;
         margin-bottom: 1%;
         margin-left: 5%;
@@ -270,6 +246,25 @@ export default function Parent(){
         }
     `
 
+export default function Parent(){
+
+    const [blur, setBlur] = useState(false);
+
+    const blurBg = () => {
+        setBlur(true);
+    };
+
+    const unblurBg = () => {
+        setBlur(false);
+    };
+
+    const MainDiv = styled.div`
+        display: flex;
+        justify-content:center;
+        align-items: center;
+        filter: blur(${blur ? "5px" : "0px"});
+    `
+
 
     
     return <>
@@ -286,7 +281,7 @@ export default function Parent(){
         Product={Product}
         ProductList={ProductList}
         MainDiv={MainDiv}
-        ></List>
+        />
 
         <Basket unblurBg={unblurBg} blurBg={blurBg}
         RemoveProduct={RemoveProduct}
@@ -301,6 +296,6 @@ export default function Parent(){
         CloseBasket={CloseBasket}
         RemoveSpace={RemoveSpace}
         BuyProduct={BuyProduct}
-        ></Basket>
+        />
     </>
 }

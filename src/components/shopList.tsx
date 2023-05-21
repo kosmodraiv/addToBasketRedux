@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addToBasket } from './store';
+import { addToBasket } from './Store';
 
 interface ListProps {
   AddTo: React.ComponentType<any>;
@@ -17,7 +17,7 @@ interface ListProps {
   MainDiv: React.ComponentType<any>;
 }
 
-export default function List({ AddTo, InputAmount, ButtonText, Button, ProductPrice, ProductName, BotSpace, Image, ImagesSpace, Product, ProductList, MainDiv }: ListProps): JSX.Element {
+const List: React.FC<ListProps> = ({ AddTo, InputAmount, ButtonText, Button, ProductPrice, ProductName, BotSpace, Image, ImagesSpace, Product, ProductList, MainDiv }) => {
   const [list, setList] = useState([]);
 
   useEffect(() => {
@@ -31,8 +31,6 @@ export default function List({ AddTo, InputAmount, ButtonText, Button, ProductPr
         alert('Not found');
       });
   }, []);
-
-  console.log(list);
 
   const [quantities, setQuantities] = useState<number[]>([]);
   const dispatch = useDispatch();
@@ -62,7 +60,7 @@ export default function List({ AddTo, InputAmount, ButtonText, Button, ProductPr
                 <InputAmount
                   min="1"
                   type="number"
-                  value={quantities[obj.id] || 1}
+                  value={quantities[obj.id] ?? 1}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     const newQuantities = [...quantities];
                     const newValue = parseInt(e.target.value);
@@ -84,3 +82,5 @@ export default function List({ AddTo, InputAmount, ButtonText, Button, ProductPr
     </MainDiv>
   );
 }
+
+export default List;

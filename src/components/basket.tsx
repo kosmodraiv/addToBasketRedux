@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components";
 import 'animate.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromBasket, updateQuantity } from './store';
-import { useState } from "react";
+import { removeFromBasket, updateQuantity } from './Store';
 
 interface BasketProps {
   unblurBg: () => void;
@@ -22,7 +21,16 @@ interface BasketProps {
   BuyProduct: React.ComponentType<any>;
 }
 
-export default function Basket({
+const BasketImg = styled.img`
+  top: 0;
+  right: 0;
+  width: 60px;
+  margin-right: 1%;
+  position: fixed;
+  cursor: pointer;
+  `;
+
+const Basket: React.FC<BasketProps> = ({
   blurBg,
   unblurBg,
   RemoveProduct,
@@ -37,7 +45,7 @@ export default function Basket({
   CloseBasket,
   RemoveSpace,
   BuyProduct
-}: BasketProps): JSX.Element  {
+}) => {
   const dispatch = useDispatch();
 
   const [visible, setVisible] = useState(false);
@@ -62,15 +70,6 @@ export default function Basket({
     border-radius: 10px;
     visibility: ${visible ? "visible" : "hidden"};
     box-shadow: 0 3px 15px #0EF6CC;
-  `;
-
-  const BasketImg = styled.img`
-    top: 0;
-    right: 0;
-    width: 60px;
-    margin-right: 1%;
-    position: fixed;
-    cursor: pointer;
   `;
 
   const basketItems = useSelector((state: any) => state.basket.items);
@@ -98,9 +97,9 @@ export default function Basket({
           {basketItems.map((item: any) => (
             <BasketItem key={item.id}>
               <ItemBasketName>Product: {item.product.name}</ItemBasketName>
-              
+
               <AmountText>Amount:</AmountText>
-              
+
               <AmountSpace>
 
                 <AmountInput
@@ -117,9 +116,9 @@ export default function Basket({
                   }}
                 />
               </AmountSpace>
-              
+
               <AmountText>Price: {item.product.price * item.quantity} UAH</AmountText>
-              
+
               <RemoveSpace>
                 <BuyProduct>Buy</BuyProduct>
                 <RemoveProduct onClick={() => dispatch(removeFromBasket(item.product.id))}>Remove</RemoveProduct>
@@ -132,3 +131,5 @@ export default function Basket({
     </>
   );
 }
+
+export default Basket;
