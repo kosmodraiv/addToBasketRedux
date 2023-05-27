@@ -1,6 +1,6 @@
 import React from 'react';
 import List from "./List";
-import Basket from "./basket";
+import Basket from "./Basket";
 import { useState } from "react";
 
 const Main: React.FC = () =>{
