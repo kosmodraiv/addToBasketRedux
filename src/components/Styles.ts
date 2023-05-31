@@ -39,14 +39,6 @@ export const GlobalStyles = createGlobalStyle`
     width: 0;
     height: 0;
   }
-
-//   body::before {
-//     right: 0;
-//     top: 80%;
-//     border-bottom: 200px solid black;
-//     border-left: 200px solid transparent;
-//     z-index: -1;
-//   }
   
 `;
 
