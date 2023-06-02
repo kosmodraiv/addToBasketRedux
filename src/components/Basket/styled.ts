@@ -8,6 +8,7 @@ export const BasketProductImg = styled.img`
 	border-radius: 10px;
 `
 
+// TODO: Rename
 export const StyledBasket = styled.div<{ visible: boolean }>`
 	z-index: 99;
 	position: fixed;
@@ -59,20 +60,6 @@ export const ListBasket = styled.div`
 	height: 90%;
 	max-width: 90%;
 	min-width: 90%;
-
-	::-webkit-scrollbar {
-		width: 12px;
-	}
-
-	::-webkit-scrollbar-thumb {
-		background-color: black;
-		border-radius: 20px;
-		border: none;
-	}
-
-	::-webkit-scrollbar-track {
-		background: white;
-	}
 `
 
 export const CloseBasket = styled.img`

@@ -6,9 +6,7 @@
 	"extends": [
 		"plugin:@typescript-eslint/recommended",
 		"plugin:react-hooks/recommended",
-		"plugin:react/recommended",
-		"google",
-		"prettier"
+		"plugin:react/recommended"
 	],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
@@ -24,7 +22,7 @@
 		"@typescript-esling/ban-ts-comment": "off",
 		"@typescript-eslint/ban-types": "off",
 		"react/react-in-jsx-scope": "off",
-		"react-hooks/exhaustive-deps": "off",
-		"no-unused-vars": "off"
+		"react-hooks/exhaustive-deps": "warn",
+		"no-unused-vars": "error"
 	}
 }

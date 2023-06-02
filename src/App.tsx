@@ -1,23 +1,20 @@
 import React from 'react'
-
-import AppContainer from './components/AppContainer/AppContainer'
-
-import { store, persistedStore } from './store/store'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 
-import { GlobalStyles } from './styles/global'
+import AppContainer from './components/AppContainer/AppContainer'
+import { store, persistedStore } from './store/store'
+import { GlobalStyles } from './globalStyles'
 
 const App: React.FC = () => {
 	return (
-		<>
-			<GlobalStyles />
-			<Provider store={store}>
-				<PersistGate loading={null} persistor={persistedStore}>
-					<AppContainer />
-				</PersistGate>
-			</Provider>
-		</>
+		<Provider store={store}>
+			<PersistGate loading={null} persistor={persistedStore}>
+				<GlobalStyles />
+
+				<AppContainer />
+			</PersistGate>
+		</Provider>
 	)
 }
 

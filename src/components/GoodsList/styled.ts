@@ -107,7 +107,7 @@ export const InputAmount = styled.input`
 	border-bottom-left-radius: 0;
 `
 
-export const MainDiv = styled.div<{ blured: boolean }>`
+export const MainContainer = styled.div<{ blured: boolean }>`
 	display: flex;
 	justify-content: center;
 	align-items: center;

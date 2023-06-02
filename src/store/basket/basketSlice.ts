@@ -1,26 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-interface Product {
-	id: number
-}
+import { BasketState } from './types'
 
-interface BasketItem {
-	product: Product
-	quantity: number
-}
-
-interface BasketState {
-	items: BasketItem[]
+const initialState: BasketState = {
+	items: []
 }
 
 export const basketSlice = createSlice({
 	name: 'basket',
-	initialState: { items: [] } as BasketState,
+	initialState,
 	reducers: {
-		initialize: (state, action) => {
-			state.items = action.payload.items
-		},
-
 		addToBasket: (state, action) => {
 			const { product, quantity } = action.payload
 			const existingProduct = state.items.find(
@@ -35,7 +24,12 @@ export const basketSlice = createSlice({
 				existingProduct.quantity += validQuantity
 			} else {
 				// Если товар не существует в корзине, добавляет его как новый товар
-				state.items.push({ product, quantity: validQuantity })
+				state.items.push({
+					// TODO: Think about better solution
+					id: Date.now(),
+					product,
+					quantity: validQuantity
+				})
 			}
 		},
 
@@ -60,7 +54,11 @@ export const basketSlice = createSlice({
 
 		removeFromBasket: (state, action) => {
 			const { itemId } = action.payload
+
 			state.items = state.items.filter(item => item.product.id !== itemId)
 		}
 	}
 })
+
+export const { addToBasket, updateQuantity, removeFromBasket } =
+	basketSlice.actions

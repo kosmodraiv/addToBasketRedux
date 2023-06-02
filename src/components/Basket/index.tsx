@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import 'animate.css'
 import { useSelector, useDispatch } from 'react-redux'
+
 import {
 	removeFromBasket,
 	updateQuantity
-} from '../../store/basket/basket.action'
-
+} from '../../store/basket/basketSlice'
+import { selectBasketItems } from '../../store/basket/selectors'
 import {
 	BasketProductImg,
 	StyledBasket,
@@ -28,17 +29,6 @@ interface BasketProps {
 	toggleBlurredBackground: () => void
 }
 
-interface BasketItem {
-	id: number
-	product: {
-		id: number
-		name: string
-		price: number
-		image: string
-	}
-	quantity: number
-}
-
 const Basket: React.FC<BasketProps> = ({ toggleBlurredBackground }) => {
 	const dispatch = useDispatch()
 	const [visible, setVisible] = useState<boolean>(false)
@@ -47,9 +37,7 @@ const Basket: React.FC<BasketProps> = ({ toggleBlurredBackground }) => {
 		setVisible(prev => !prev)
 	}
 
-	const basketItems = useSelector(
-		(state: { basket: { items: BasketItem[] } }) => state.basket.items
-	)
+	const basketItems = useSelector(selectBasketItems)
 
 	const basketAmount = basketItems.length
 
@@ -72,7 +60,7 @@ const Basket: React.FC<BasketProps> = ({ toggleBlurredBackground }) => {
 					console.log('true')
 				}}
 				src={BasketImage}
-			></BasketImg>
+			/>
 
 			<AmountBasket>
 				<Amount>{basketAmount}</Amount>
@@ -83,6 +71,7 @@ const Basket: React.FC<BasketProps> = ({ toggleBlurredBackground }) => {
 				className={`${visible ? 'animate__animated animate__fadeIn' : ''}`}
 			>
 				<CloseBasket
+					// TODO: Create a handler
 					onClick={() => {
 						handleClick()
 						toggleBlurredBackground()
@@ -112,7 +101,9 @@ const Basket: React.FC<BasketProps> = ({ toggleBlurredBackground }) => {
 
 							<RemoveSpace>
 								<BuyProduct>Buy</BuyProduct>
+
 								<RemoveProduct
+									// TODO: Create a handler
 									onClick={() =>
 										dispatch(
 											removeFromBasket({

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { persistStore, persistReducer } from 'redux-persist'
-import { basketSlice } from './basket/basket.slice'
+import { basketSlice } from './basket/basketSlice'
 import storage from 'redux-persist/lib/storage'
 
 const persistConfig = {
@@ -17,5 +17,9 @@ const store = configureStore({
 })
 
 const persistedStore = persistStore(store)
+
+type RootState = ReturnType<typeof store.getState>
+
+export type { RootState }
 
 export { store, persistedStore }

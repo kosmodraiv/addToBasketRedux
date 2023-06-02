@@ -2,19 +2,22 @@ import styled from 'styled-components'
 
 export const HeaderMain = styled.div`
 	height: 7vh;
-	font-size: 26px;
 	background-color: black;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	// TODO: Remove once Bucket inside
 	position: relative;
 	z-index: -2;
 `
 
+// TODO: Consider using text tag like p or h1 and so on
+// TODO: Move pseudo elements to another component
 export const HeaderLogo = styled.div`
 	font-weight: bold;
 	text-transform: uppercase;
 	color: #fff;
+	font-size: 26px;
 	position: relative;
 	user-select: none;
 
@@ -37,10 +40,10 @@ export const HeaderLogo = styled.div`
 		height: 2px;
 		background-color: #fff;
 	}
+`
 
-	span {
-		color: black;
-		background-color: #fff;
-		padding: 5px;
-	}
+export const HeaderTitle = styled.span`
+	color: black;
+	background-color: #fff;
+	padding: 5px;
 `

@@ -1,8 +1,8 @@
-import React from 'react'
-import GoodsList from '../GoodsList/GoodsList'
-import Basket from '../Basket/Basket'
-import { useState } from 'react'
-import Header from '../Header/Header'
+import React, { useState } from 'react'
+
+import GoodsList from '../GoodsList'
+import Basket from '../Basket'
+import Header from '../Header'
 
 const AppContainer: React.FC = () => {
 	const [blured, setBlured] = useState<boolean>(false)

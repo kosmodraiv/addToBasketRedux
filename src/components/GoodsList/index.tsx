@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { addToBasket } from '../../store/basket/basket.action'
+
+import { addToBasket } from '../../store/basket/basketSlice'
 import {
 	ProductText,
 	ProductList,
@@ -14,14 +15,14 @@ import {
 	ButtonText,
 	Button,
 	InputAmount,
-	MainDiv
+	MainContainer
 } from './styled'
 
 interface ListProps {
 	blured: boolean
 }
 
-interface GoodsItems {
+interface GoodsItem {
 	id: number
 	image: string
 	price: number
@@ -31,7 +32,7 @@ interface GoodsItems {
 const GoodsList: React.FC<ListProps> = ({ blured }) => {
 	const dispatch = useDispatch()
 
-	const [list, setList] = useState([])
+	const [list, setList] = useState<GoodsItem[]>([])
 	const [quantities, setQuantities] = useState<number[]>([])
 
 	useEffect(() => {
@@ -40,12 +41,15 @@ const GoodsList: React.FC<ListProps> = ({ blured }) => {
 			.then(json => {
 				setList(json)
 			})
-			.catch(err => {
+			.catch(() => {
 				alert('Not found')
 			})
 	}, [])
 
-	function handleQuantityChange(e, goods) {
+	function handleQuantityChange(
+		e: React.ChangeEvent<HTMLInputElement>,
+		goods: GoodsItem
+	) {
 		const newQuantities = [...quantities]
 		const newValue = parseInt(e.target.value)
 
@@ -58,10 +62,29 @@ const GoodsList: React.FC<ListProps> = ({ blured }) => {
 		setQuantities(newQuantities)
 	}
 
+	const handleAddPress = (goods: GoodsItem) => {
+		dispatch(
+			addToBasket({
+				product: goods,
+				quantity: Number(quantities[goods.id])
+			})
+		)
+	}
+
+	// ? currying
+	// const handleAddPress = (goods: GoodsItem) => () => {
+	// 	dispatch(
+	// 		addToBasket({
+	// 			product: goods,
+	// 			quantity: Number(quantities[goods.id])
+	// 		})
+	// 	)
+	// }
+
 	return (
-		<MainDiv blured={blured}>
+		<MainContainer blured={blured}>
 			<ProductList>
-				{list.map((goods: GoodsItems) => (
+				{list.map(goods => (
 					<Product key={goods.id}>
 						<ImagesSpace>
 							<Image src={goods.image} />
@@ -70,19 +93,14 @@ const GoodsList: React.FC<ListProps> = ({ blured }) => {
 						<BotSpace>
 							<ProductText>
 								<ProductName>{goods.name}</ProductName>
+
 								<ProductPrice>{goods.price} UAH</ProductPrice>
 							</ProductText>
 
 							<AddTo>
 								<Button
-									onClick={() => {
-										dispatch(
-											addToBasket({
-												product: goods,
-												quantity: Number(quantities[goods.id])
-											})
-										)
-									}}
+									onClick={() => handleAddPress(goods)}
+									// onClick={handleAddPress2(goods)}
 								>
 									<ButtonText>Add to Basket</ButtonText>
 								</Button>
@@ -98,7 +116,7 @@ const GoodsList: React.FC<ListProps> = ({ blured }) => {
 					</Product>
 				))}
 			</ProductList>
-		</MainDiv>
+		</MainContainer>
 	)
 }
 
